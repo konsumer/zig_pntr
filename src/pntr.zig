@@ -16,7 +16,7 @@ pub const Error = c.pntr_error;
 // these are "dumb" wrappers, but they could be more complex (proper error-handling, etc)
 
 pub const new_image = c.pntr_new_image;
-pub const  gen_image_color = c.pntr_gen_image_color;
+pub const gen_image_color = c.pntr_gen_image_color;
 pub const new_color = c.pntr_new_color;
 pub const unload_image = c.pntr_unload_image;
 pub const save_image = c.pntr_save_image;
@@ -183,14 +183,70 @@ pub const BLANK = Color{ .value=0 };
 pub const MAGENTA = Color{ .value=4294902015 };
 pub const RAYWHITE = Color{ .value=4294309365 };
 
-test "testing simple sum" {
-    const a: u8 = 2;
-    const b: u8 = 2;
-    try expect((a + b) == 4);
-}
-
 test "generate color image" {
-  const image: *Image = gen_image_color(100, 100, GOLD);
+  const image = gen_image_color(100, 100, GOLD);
   defer unload_image(image);
   try expect(save_image(image, "output0.png"));
+}
+
+test "shapes" {
+  const canvas = gen_image_color(400, 225, RAYWHITE);
+  defer unload_image(canvas);
+
+  // make some new colors from defined ones
+  var LIGHTGREEN = GREEN;
+  LIGHTGREEN.rgba.a = 180;
+  var LIGHTBLUE = BLUE;
+  LIGHTBLUE.rgba.a = 180;
+
+  // Rectangles
+  draw_rectangle_fill(canvas, 10, 30, 50, 50, RED);
+  draw_rectangle_fill(canvas, 20, 40, 50, 50, LIGHTGREEN);
+  draw_rectangle_fill(canvas, 30, 50, 50, 50, LIGHTGREEN);
+
+  draw_rectangle_thick(canvas, 10, 120, 50, 50, 5, RED);
+  draw_rectangle_thick(canvas, 20, 130, 50, 50, 5, GREEN);
+  draw_rectangle_thick(canvas, 30, 140, 50, 50, 5, BLUE);
+
+  // Circle
+  draw_circle(canvas, 110, 60, 21, RED);
+  draw_circle_fill(canvas, 160, 60, 21, BLUE);
+
+  draw_ellipse(canvas, 110, 100, 20, 10, GREEN);
+  draw_ellipse_fill(canvas, 160, 100, 20, 10, ORANGE);
+
+  // Line
+  draw_line(canvas, 200, 50, 250, 80, DARKGREEN);
+
+  // Triangle
+  draw_triangle_fill(canvas, 250, 50, 300, 80, 350, 20, PURPLE);
+
+  // Rectangle Gradient
+  draw_rectangle_gradient(canvas, 100, 120, 80, 80, RED, GREEN, BLUE, BLACK);
+
+  // // Polygon
+  var points:[4]Vector = undefined;
+  points[0] = Vector{.x=210, .y=110};
+  points[1] = Vector{.x=215, .y=130};
+  points[2] = Vector{.x=240, .y=140};
+  points[3] = Vector{.x=200, .y=160};
+  draw_polygon_fill(canvas, &points, 4, BLUE);
+  draw_polygon(canvas, &points, 4, BLACK);
+
+  // Arc
+  const radius = 40;
+  draw_arc_fill(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, ORANGE);
+  draw_arc(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, RED);
+
+  // Polyline
+  points[0] = Vector{.x=240, .y=80};
+  points[1] = Vector{.x=260, .y=100};
+  points[2] = Vector{.x=220, .y=110};
+  points[3] = Vector{.x=240, .y=130};
+  draw_polyline(canvas, &points, 4, PURPLE);
+
+  // Line Curve
+  draw_line_curve(canvas, points[0], points[1], points[2], points[3], 40, DARKBLUE);
+
+  try expect(save_image(canvas, "output1.png"));
 }
