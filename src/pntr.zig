@@ -156,36 +156,32 @@ pub const draw_line_curve_thick = c.pntr_draw_line_curve_thick;
 pub const put_horizontal_line_unsafe = c.pntr_put_horizontal_line_unsafe;
 pub const draw_point_unsafe = c.pntr_draw_point_unsafe;
 
-
-// I can't just define/export these because I get a comp-time error:
-
-// pub const LIGHTGRAY = new_color(200, 200, 200, 255);
-// pub const GRAY = new_color(130, 130, 130, 255);
-// pub const DARKGRAY = new_color(80, 80, 80, 255);
-// pub const YELLOW = new_color(253, 249, 0, 255);
-// pub const GOLD = new_color(255, 203, 0, 255);
-// pub const ORANGE = new_color(255, 161, 0, 255);
-// pub const PINK = new_color(255, 109, 194, 255);
-// pub const RED = new_color(230, 41, 55, 255);
-// pub const MAROON = new_color(190, 33, 55, 255);
-// pub const GREEN = new_color(0, 228, 48, 255);
-// pub const LIME = new_color(0, 158, 47, 255);
-// pub const DARKGREEN = new_color(0, 117, 44, 255);
-// pub const SKYBLUE = new_color(102, 191, 255, 255);
-// pub const BLUE = new_color(0, 121, 241, 255);
-// pub const DARKBLUE = new_color(0, 82, 172, 255);
-// pub const PURPLE = new_color(200, 122, 255, 255);
-// pub const VIOLET = new_color(135, 60, 190, 255);
-// pub const DARKPURPLE = new_color(112, 31, 126, 255);
-// pub const BEIGE = new_color(211, 176, 131, 255);
-// pub const BROWN = new_color(127, 106, 79, 255);
-// pub const DARKBROWN = new_color(76, 63, 47, 255);
-// pub const WHITE = new_color(255, 255, 255, 255);
-// pub const BLACK = new_color(0, 0, 0, 255);
-// pub const BLANK = new_color(0, 0, 0, 0);
-// pub const MAGENTA = new_color(255, 0, 255, 255);
-// pub const RAYWHITE = new_color(245, 245, 245, 255);
-
+pub const LIGHTGRAY = Color{ .value=4291348680 };
+pub const GRAY = Color{ .value=4286743170 };
+pub const DARKGRAY = Color{ .value=4283453520 };
+pub const YELLOW = Color{ .value=4278254077 };
+pub const GOLD = Color{ .value=4278242303 };
+pub const ORANGE = Color{ .value=4278231551 };
+pub const PINK = Color{ .value=4290932223 };
+pub const RED = Color{ .value=4281805286 };
+pub const MAROON = Color{ .value=4281803198 };
+pub const GREEN = Color{ .value=4281394176 };
+pub const LIME = Color{ .value=4281310720 };
+pub const DARKGREEN = Color{ .value=4281103616 };
+pub const SKYBLUE = Color{ .value=4294950758 };
+pub const BLUE = Color{ .value=4294015232 };
+pub const DARKBLUE = Color{ .value=4289483264 };
+pub const PURPLE = Color{ .value=4294933192 };
+pub const VIOLET = Color{ .value=4290657415 };
+pub const DARKPURPLE = Color{ .value=4286455664 };
+pub const BEIGE = Color{ .value=4286820563 };
+pub const BROWN = Color{ .value=4283394687 };
+pub const DARKBROWN = Color{ .value=4281286476 };
+pub const WHITE = Color{ .value=4294967295 };
+pub const BLACK = Color{ .value=4278190080 };
+pub const BLANK = Color{ .value=0 };
+pub const MAGENTA = Color{ .value=4294902015 };
+pub const RAYWHITE = Color{ .value=4294309365 };
 
 test "testing simple sum" {
     const a: u8 = 2;
@@ -194,7 +190,6 @@ test "testing simple sum" {
 }
 
 test "generate color image" {
-  const GOLD = new_color(255, 203, 0, 255);
   const image: *Image = gen_image_color(100, 100, GOLD);
   defer unload_image(image);
   try expect(save_image(image, "output0.png"));
