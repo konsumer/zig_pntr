@@ -224,8 +224,9 @@ test "shapes" {
   // Rectangle Gradient
   draw_rectangle_gradient(canvas, 100, 120, 80, 80, RED, GREEN, BLUE, BLACK);
 
-  // // Polygon
   var points:[4]Vector = undefined;
+
+  // Polygon
   points[0] = Vector{.x=210, .y=110};
   points[1] = Vector{.x=215, .y=130};
   points[2] = Vector{.x=240, .y=140};
