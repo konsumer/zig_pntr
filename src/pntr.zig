@@ -3,6 +3,16 @@ const expect = std.testing.expect;
 
 const c = @cImport({ @cInclude("pntr.h"); });
 
+pub const Image = c.pntr_image;
+pub const Color = c.pntr_color;
+pub const Vector = c.pntr_vector;
+pub const Rectangle = c.pntr_rectangle;
+pub const Font = c.pntr_font;
+pub const PixelFormat = c.pntr_pixelformat;
+pub const Filter = c.pntr_filter;
+pub const ImageType = c.pntr_image_type;
+pub const Error = c.pntr_error;
+
 // these are "dumb" wrappers, but they could be more complex (proper error-handling, etc)
 
 pub const new_image = c.pntr_new_image;
