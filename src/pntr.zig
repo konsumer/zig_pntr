@@ -1,7 +1,9 @@
 const std = @import("std");
 const expect = std.testing.expect;
 
-const c = @cImport({ @cInclude("pntr.h"); });
+const c = @cImport({
+    @cInclude("pntr.h");
+});
 
 pub const Image = c.pntr_image;
 pub const Color = c.pntr_color;
@@ -156,98 +158,116 @@ pub const draw_line_curve_thick = c.pntr_draw_line_curve_thick;
 pub const put_horizontal_line_unsafe = c.pntr_put_horizontal_line_unsafe;
 pub const draw_point_unsafe = c.pntr_draw_point_unsafe;
 
-pub const LIGHTGRAY = Color{ .value=4291348680 };
-pub const GRAY = Color{ .value=4286743170 };
-pub const DARKGRAY = Color{ .value=4283453520 };
-pub const YELLOW = Color{ .value=4278254077 };
-pub const GOLD = Color{ .value=4278242303 };
-pub const ORANGE = Color{ .value=4278231551 };
-pub const PINK = Color{ .value=4290932223 };
-pub const RED = Color{ .value=4281805286 };
-pub const MAROON = Color{ .value=4281803198 };
-pub const GREEN = Color{ .value=4281394176 };
-pub const LIME = Color{ .value=4281310720 };
-pub const DARKGREEN = Color{ .value=4281103616 };
-pub const SKYBLUE = Color{ .value=4294950758 };
-pub const BLUE = Color{ .value=4294015232 };
-pub const DARKBLUE = Color{ .value=4289483264 };
-pub const PURPLE = Color{ .value=4294933192 };
-pub const VIOLET = Color{ .value=4290657415 };
-pub const DARKPURPLE = Color{ .value=4286455664 };
-pub const BEIGE = Color{ .value=4286820563 };
-pub const BROWN = Color{ .value=4283394687 };
-pub const DARKBROWN = Color{ .value=4281286476 };
-pub const WHITE = Color{ .value=4294967295 };
-pub const BLACK = Color{ .value=4278190080 };
-pub const BLANK = Color{ .value=0 };
-pub const MAGENTA = Color{ .value=4294902015 };
-pub const RAYWHITE = Color{ .value=4294309365 };
+pub const LIGHTGRAY = Color{ .value = 4291348680 };
+pub const GRAY = Color{ .value = 4286743170 };
+pub const DARKGRAY = Color{ .value = 4283453520 };
+pub const YELLOW = Color{ .value = 4278254077 };
+pub const GOLD = Color{ .value = 4278242303 };
+pub const ORANGE = Color{ .value = 4278231551 };
+pub const PINK = Color{ .value = 4290932223 };
+pub const RED = Color{ .value = 4281805286 };
+pub const MAROON = Color{ .value = 4281803198 };
+pub const GREEN = Color{ .value = 4281394176 };
+pub const LIME = Color{ .value = 4281310720 };
+pub const DARKGREEN = Color{ .value = 4281103616 };
+pub const SKYBLUE = Color{ .value = 4294950758 };
+pub const BLUE = Color{ .value = 4294015232 };
+pub const DARKBLUE = Color{ .value = 4289483264 };
+pub const PURPLE = Color{ .value = 4294933192 };
+pub const VIOLET = Color{ .value = 4290657415 };
+pub const DARKPURPLE = Color{ .value = 4286455664 };
+pub const BEIGE = Color{ .value = 4286820563 };
+pub const BROWN = Color{ .value = 4283394687 };
+pub const DARKBROWN = Color{ .value = 4281286476 };
+pub const WHITE = Color{ .value = 4294967295 };
+pub const BLACK = Color{ .value = 4278190080 };
+pub const BLANK = Color{ .value = 0 };
+pub const MAGENTA = Color{ .value = 4294902015 };
+pub const RAYWHITE = Color{ .value = 4294309365 };
 
 test "generate color image" {
-  const image = gen_image_color(100, 100, GOLD);
-  defer unload_image(image);
-  try expect(save_image(image, "output0.png"));
+    const image = gen_image_color(100, 100, GOLD);
+    defer unload_image(image);
+    try expect(save_image(image, "output0.png"));
 }
 
 test "shapes" {
-  const canvas = gen_image_color(400, 225, RAYWHITE);
-  defer unload_image(canvas);
+    const canvas = gen_image_color(400, 225, RAYWHITE);
+    defer unload_image(canvas);
 
-  // make some new colors from defined ones
-  var LIGHTGREEN = GREEN;
-  LIGHTGREEN.rgba.a = 180;
-  var LIGHTBLUE = BLUE;
-  LIGHTBLUE.rgba.a = 180;
+    // make some new colors from defined ones
+    var LIGHTGREEN = GREEN;
+    LIGHTGREEN.rgba.a = 180;
+    var LIGHTBLUE = BLUE;
+    LIGHTBLUE.rgba.a = 180;
 
-  // Rectangles
-  draw_rectangle_fill(canvas, 10, 30, 50, 50, RED);
-  draw_rectangle_fill(canvas, 20, 40, 50, 50, LIGHTGREEN);
-  draw_rectangle_fill(canvas, 30, 50, 50, 50, LIGHTGREEN);
+    // Rectangles
+    draw_rectangle_fill(canvas, 10, 30, 50, 50, RED);
+    draw_rectangle_fill(canvas, 20, 40, 50, 50, LIGHTGREEN);
+    draw_rectangle_fill(canvas, 30, 50, 50, 50, LIGHTGREEN);
 
-  draw_rectangle_thick(canvas, 10, 120, 50, 50, 5, RED);
-  draw_rectangle_thick(canvas, 20, 130, 50, 50, 5, GREEN);
-  draw_rectangle_thick(canvas, 30, 140, 50, 50, 5, BLUE);
+    draw_rectangle_thick(canvas, 10, 120, 50, 50, 5, RED);
+    draw_rectangle_thick(canvas, 20, 130, 50, 50, 5, GREEN);
+    draw_rectangle_thick(canvas, 30, 140, 50, 50, 5, BLUE);
 
-  // Circle
-  draw_circle(canvas, 110, 60, 21, RED);
-  draw_circle_fill(canvas, 160, 60, 21, BLUE);
+    // Circle
+    draw_circle(canvas, 110, 60, 21, RED);
+    draw_circle_fill(canvas, 160, 60, 21, BLUE);
 
-  draw_ellipse(canvas, 110, 100, 20, 10, GREEN);
-  draw_ellipse_fill(canvas, 160, 100, 20, 10, ORANGE);
+    draw_ellipse(canvas, 110, 100, 20, 10, GREEN);
+    draw_ellipse_fill(canvas, 160, 100, 20, 10, ORANGE);
 
-  // Line
-  draw_line(canvas, 200, 50, 250, 80, DARKGREEN);
+    // Line
+    draw_line(canvas, 200, 50, 250, 80, DARKGREEN);
 
-  // Triangle
-  draw_triangle_fill(canvas, 250, 50, 300, 80, 350, 20, PURPLE);
+    // Triangle
+    draw_triangle_fill(canvas, 250, 50, 300, 80, 350, 20, PURPLE);
 
-  // Rectangle Gradient
-  draw_rectangle_gradient(canvas, 100, 120, 80, 80, RED, GREEN, BLUE, BLACK);
+    // Rectangle Gradient
+    draw_rectangle_gradient(canvas, 100, 120, 80, 80, RED, GREEN, BLUE, BLACK);
 
-  var points:[4]Vector = undefined;
+    var points: [4]Vector = undefined;
 
-  // Polygon
-  points[0] = Vector{.x=210, .y=110};
-  points[1] = Vector{.x=215, .y=130};
-  points[2] = Vector{.x=240, .y=140};
-  points[3] = Vector{.x=200, .y=160};
-  draw_polygon_fill(canvas, &points, 4, BLUE);
-  draw_polygon(canvas, &points, 4, BLACK);
+    // Polygon
+    points[0] = Vector{ .x = 210, .y = 110 };
+    points[1] = Vector{ .x = 215, .y = 130 };
+    points[2] = Vector{ .x = 240, .y = 140 };
+    points[3] = Vector{ .x = 200, .y = 160 };
+    draw_polygon_fill(canvas, &points, 4, BLUE);
+    draw_polygon(canvas, &points, 4, BLACK);
 
-  // Arc
-  const radius = 40;
-  draw_arc_fill(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, ORANGE);
-  draw_arc(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, RED);
+    // Arc
+    const radius = 40;
+    draw_arc_fill(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, ORANGE);
+    draw_arc(canvas, 300, 120, radius, 90.0, 180.0, radius * 1.5, RED);
 
-  // Polyline
-  points[0] = Vector{.x=240, .y=80};
-  points[1] = Vector{.x=260, .y=100};
-  points[2] = Vector{.x=220, .y=110};
-  points[3] = Vector{.x=240, .y=130};
-  draw_polyline(canvas, &points, 4, PURPLE);
+    // Polyline
+    points[0] = Vector{ .x = 240, .y = 80 };
+    points[1] = Vector{ .x = 260, .y = 100 };
+    points[2] = Vector{ .x = 220, .y = 110 };
+    points[3] = Vector{ .x = 240, .y = 130 };
+    draw_polyline(canvas, &points, 4, PURPLE);
 
-  // Line Curve
-  draw_line_curve(canvas, points[0], points[1], points[2], points[3], 40, DARKBLUE);
+    // Line Curve
+    draw_line_curve(canvas, points[0], points[1], points[2], points[3], 40, DARKBLUE);
 
-  try expect(save_image(canvas, "output1.png"));
+    try expect(save_image(canvas, "output1.png"));
+}
+
+test "fonts" {
+    const canvas = gen_image_color(400, 225, RAYWHITE);
+    defer unload_image(canvas);
+
+    // this requires default_font build-option, which is enabled by default
+    const defaultFont = load_font_default();
+    try expect(defaultFont != null);
+
+    // draw the  entire font as image
+    // TODO: this does nto seem to work
+    draw_image(canvas, defaultFont.*.atlas, 0, 0);
+
+    // draw some text
+    draw_text(canvas, defaultFont, "Default Font Example", 10, 50, BLACK);
+
+    try expect(save_image(canvas, "output2.png"));
 }
