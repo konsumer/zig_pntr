@@ -43,11 +43,11 @@ const pntr = pntr_dep.module("pntr");
 You can also set some options:
 
 ```
-pixel_order: Pixel order: RGBA or ARGB
+pixel_order:  Pixel order: RGBA or ARGB
 default_font: Embed default-font
-ttf: Use TTF fonts
-utf8: Enable UTF8 support
-math: Use math standard library (or built-in)
+ttf:          Use TTF fonts
+utf8:         Enable UTF8 support
+math:         Use math standard library (or built-in)
 ```
 
 Like this:
