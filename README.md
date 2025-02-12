@@ -40,7 +40,30 @@ const pntr_dep = b.dependency("pntr", .{
 const pntr = pntr_dep.module("pntr");
 ```
 
-Now add to your own exe targtet like this:
+You can also set some options:
+
+```
+pixel_order: Pixel order: RGBA or ARGB
+default_font: Embed default-font
+ttf: Use TTF fonts
+utf8: Enable UTF8 support
+math: Use math standard library (or built-in)
+```
+
+Like this:
+
+```zig
+const pntr_dep = b.dependency("pntr", .{
+	.target = target,
+	.optimize = optimize,
+	.math = false
+});
+```
+
+The defaults are meant to be sensible for most use-cases.
+
+
+Now add to your own exe target like this:
 
 ```zig
 exe.root_module.addImport("pntr", pntr);
